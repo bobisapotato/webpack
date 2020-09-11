@@ -1666,6 +1666,17 @@ declare class ConcatSource extends Source {
 	add(item: string | Source): void;
 	addAllSkipOptimizing(items: Source[]): void;
 }
+declare interface ConcatenationBailoutReasonContext {
+	/**
+	 * the module graph
+	 */
+	moduleGraph: ModuleGraph;
+
+	/**
+	 * the chunk graph
+	 */
+	chunkGraph: ChunkGraph;
+}
 declare abstract class ConcatenationScope {
 	isRoot: any;
 	isModuleInScope(module?: any): boolean;
@@ -1675,6 +1686,7 @@ declare abstract class ConcatenationScope {
 		module?: any,
 		referencedExportName?: any
 	): void;
+	registerNamespaceExport(): string;
 	createModuleReference(
 		module: any,
 		__1: {
@@ -3014,11 +3026,11 @@ declare class ExternalModule extends Module {
 	request: string | string[] | Record<string, LibraryExport>;
 	externalType: string;
 	userRequest: string;
-	getSourceString(
+	getSourceData(
 		runtimeTemplate?: any,
 		moduleGraph?: any,
 		chunkGraph?: any
-	): string;
+	): SourceData;
 }
 type Externals =
 	| string
@@ -3355,7 +3367,10 @@ declare class Generator {
 	getTypes(module: NormalModule): Set<string>;
 	getSize(module: NormalModule, type?: string): number;
 	generate(module: NormalModule, __1: GenerateContext): Source;
-	getConcatenationBailoutReason(module: NormalModule): string;
+	getConcatenationBailoutReason(
+		module: NormalModule,
+		context: ConcatenationBailoutReasonContext
+	): string;
 	updateHash(hash: Hash, __1: UpdateHashContextGenerator): void;
 	static byType(map?: any): ByTypeGenerator;
 }
@@ -4565,7 +4580,9 @@ declare class Module extends DependenciesBlock {
 	size(type?: string): number;
 	libIdent(options: LibIdentOptions): string;
 	nameForCondition(): string;
-	getConcatenationBailoutReason(): string;
+	getConcatenationBailoutReason(
+		context: ConcatenationBailoutReasonContext
+	): string;
 	codeGeneration(context: CodeGenerationContext): CodeGenerationResult;
 	chunkCondition(chunk: Chunk, compilation: Compilation): boolean;
 
@@ -8258,6 +8275,11 @@ declare class Source {
 	updateHash(hash: Hash): void;
 	source(): string | Buffer;
 	buffer(): Buffer;
+}
+declare interface SourceData {
+	iife?: boolean;
+	init?: string;
+	expression: string;
 }
 declare interface SourceLike {
 	source(): string | Buffer;

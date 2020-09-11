@@ -35,6 +35,7 @@ const DEFAULT_OPTIMIZATIONS = {
 
 const NO_EMIT_ON_ERRORS_OPTIMIZATIONS = {
 	emitOnErrors: true,
+	minimize: false,
 	minimizer: [terserForTesting]
 };
 
