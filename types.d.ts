@@ -3355,6 +3355,7 @@ declare class Generator {
 	getTypes(module: NormalModule): Set<string>;
 	getSize(module: NormalModule, type?: string): number;
 	generate(module: NormalModule, __1: GenerateContext): Source;
+	getConcatenationBailoutReason(module: NormalModule): string;
 	updateHash(hash: Hash, __1: UpdateHashContextGenerator): void;
 	static byType(map?: any): ByTypeGenerator;
 }
@@ -4564,6 +4565,7 @@ declare class Module extends DependenciesBlock {
 	size(type?: string): number;
 	libIdent(options: LibIdentOptions): string;
 	nameForCondition(): string;
+	getConcatenationBailoutReason(): string;
 	codeGeneration(context: CodeGenerationContext): CodeGenerationResult;
 	chunkCondition(chunk: Chunk, compilation: Compilation): boolean;
 
