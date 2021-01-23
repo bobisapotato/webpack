@@ -24,7 +24,7 @@ describe("Validation", () => {
 		expect(msg).toMatchInlineSnapshot(`
 		"Invalid configuration object. Webpack has been initialized using a configuration object that does not match the API schema.
 		 - configuration should be an object:
-		   object { amd?, bail?, cache?, context?, dependencies?, devServer?, devtool?, entry?, experiments?, externals?, externalsPresets?, externalsType?, infrastructureLogging?, loader?, mode?, module?, name?, node?, optimization?, output?, parallelism?, performance?, plugins?, profile?, recordsInputPath?, recordsOutputPath?, recordsPath?, resolve?, resolveLoader?, snapshot?, stats?, target?, watch?, watchOptions? }
+		   object { amd?, bail?, cache?, context?, dependencies?, devServer?, devtool?, entry?, experiments?, externals?, externalsPresets?, externalsType?, ignoreWarnings?, infrastructureLogging?, loader?, mode?, module?, name?, node?, optimization?, output?, parallelism?, performance?, plugins?, profile?, recordsInputPath?, recordsOutputPath?, recordsPath?, resolve?, resolveLoader?, snapshot?, stats?, target?, watch?, watchOptions? }
 		   -> Options object as provided by the user."
 	`)
 	);
@@ -33,7 +33,7 @@ describe("Validation", () => {
 		expect(msg).toMatchInlineSnapshot(`
 		"Invalid configuration object. Webpack has been initialized using a configuration object that does not match the API schema.
 		 - configuration should be an object:
-		   object { amd?, bail?, cache?, context?, dependencies?, devServer?, devtool?, entry?, experiments?, externals?, externalsPresets?, externalsType?, infrastructureLogging?, loader?, mode?, module?, name?, node?, optimization?, output?, parallelism?, performance?, plugins?, profile?, recordsInputPath?, recordsOutputPath?, recordsPath?, resolve?, resolveLoader?, snapshot?, stats?, target?, watch?, watchOptions? }
+		   object { amd?, bail?, cache?, context?, dependencies?, devServer?, devtool?, entry?, experiments?, externals?, externalsPresets?, externalsType?, ignoreWarnings?, infrastructureLogging?, loader?, mode?, module?, name?, node?, optimization?, output?, parallelism?, performance?, plugins?, profile?, recordsInputPath?, recordsOutputPath?, recordsPath?, resolve?, resolveLoader?, snapshot?, stats?, target?, watch?, watchOptions? }
 		   -> Options object as provided by the user."
 	`)
 	);
@@ -78,7 +78,7 @@ describe("Validation", () => {
 			expect(msg).toMatchInlineSnapshot(`
 			"Invalid configuration object. Webpack has been initialized using a configuration object that does not match the API schema.
 			 - configuration.module.wrappedContextRegExp should be an instance of RegExp.
-			   -> Set the inner regular expression for partial dynamic dependencies."
+			   -> Set the inner regular expression for partial dynamic dependencies. Deprecated: This option has moved to 'module.parser.javascript.wrappedContextRegExp'."
 		`)
 	);
 
@@ -124,7 +124,7 @@ describe("Validation", () => {
 			   -> A module that is loaded upon startup. Only the last one is exported.
 			 - configuration.output.filename should be one of these:
 			   non-empty string | function
-			   -> Specifies the name of each output file on disk. You must **not** specify an absolute path here! The \`output.path\` option determines the location on disk the files are written to, filename is used solely for naming the individual files.
+			   -> Specifies the filename template of output files on disk. You must **not** specify an absolute path here, but the path may contain folders separated by '/'! The specified path is joined with the value of the 'output.path' option to determine the location on disk.
 			   Details:
 			    * configuration.output.filename should be a non-empty string.
 			    * configuration.output.filename should be an instance of function."
@@ -151,7 +151,7 @@ describe("Validation", () => {
 			   -> A module that is loaded upon startup. Only the last one is exported.
 			 - configuration[1].output.filename should be one of these:
 			   non-empty string | function
-			   -> Specifies the name of each output file on disk. You must **not** specify an absolute path here! The \`output.path\` option determines the location on disk the files are written to, filename is used solely for naming the individual files.
+			   -> Specifies the filename template of output files on disk. You must **not** specify an absolute path here, but the path may contain folders separated by '/'! The specified path is joined with the value of the 'output.path' option to determine the location on disk.
 			   Details:
 			    * configuration[1].output.filename should be a non-empty string.
 			    * configuration[1].output.filename should be an instance of function."
@@ -181,7 +181,7 @@ describe("Validation", () => {
 			expect(msg).toMatchInlineSnapshot(`
 			"Invalid configuration object. Webpack has been initialized using a configuration object that does not match the API schema.
 			 - configuration.module.rules[0].oneOf[0] has an unknown property 'passer'. These properties are valid:
-			   object { compiler?, dependency?, descriptionData?, enforce?, exclude?, generator?, include?, issuer?, loader?, mimetype?, oneOf?, options?, parser?, realResource?, resolve?, resource?, resourceFragment?, resourceQuery?, rules?, sideEffects?, test?, type?, use? }
+			   object { compiler?, dependency?, descriptionData?, enforce?, exclude?, generator?, include?, issuer?, issuerLayer?, layer?, loader?, mimetype?, oneOf?, options?, parser?, realResource?, resolve?, resource?, resourceFragment?, resourceQuery?, rules?, sideEffects?, test?, type?, use? }
 			   -> A rule description with conditions and effects for modules."
 		`)
 	);
@@ -196,7 +196,7 @@ describe("Validation", () => {
 			expect(msg).toMatchInlineSnapshot(`
 			"Invalid configuration object. Webpack has been initialized using a configuration object that does not match the API schema.
 			 - configuration has an unknown property 'postcss'. These properties are valid:
-			   object { amd?, bail?, cache?, context?, dependencies?, devServer?, devtool?, entry?, experiments?, externals?, externalsPresets?, externalsType?, infrastructureLogging?, loader?, mode?, module?, name?, node?, optimization?, output?, parallelism?, performance?, plugins?, profile?, recordsInputPath?, recordsOutputPath?, recordsPath?, resolve?, resolveLoader?, snapshot?, stats?, target?, watch?, watchOptions? }
+			   object { amd?, bail?, cache?, context?, dependencies?, devServer?, devtool?, entry?, experiments?, externals?, externalsPresets?, externalsType?, ignoreWarnings?, infrastructureLogging?, loader?, mode?, module?, name?, node?, optimization?, output?, parallelism?, performance?, plugins?, profile?, recordsInputPath?, recordsOutputPath?, recordsPath?, resolve?, resolveLoader?, snapshot?, stats?, target?, watch?, watchOptions? }
 			   -> Options object as provided by the user.
 			   For typos: please correct them.
 			   For loader options: webpack >= v2.0.0 no longer allows custom properties in configuration.
@@ -426,7 +426,7 @@ describe("Validation", () => {
 			expect(msg).toMatchInlineSnapshot(`
 			"Invalid configuration object. Webpack has been initialized using a configuration object that does not match the API schema.
 			 - configuration has an unknown property 'debug'. These properties are valid:
-			   object { amd?, bail?, cache?, context?, dependencies?, devServer?, devtool?, entry?, experiments?, externals?, externalsPresets?, externalsType?, infrastructureLogging?, loader?, mode?, module?, name?, node?, optimization?, output?, parallelism?, performance?, plugins?, profile?, recordsInputPath?, recordsOutputPath?, recordsPath?, resolve?, resolveLoader?, snapshot?, stats?, target?, watch?, watchOptions? }
+			   object { amd?, bail?, cache?, context?, dependencies?, devServer?, devtool?, entry?, experiments?, externals?, externalsPresets?, externalsType?, ignoreWarnings?, infrastructureLogging?, loader?, mode?, module?, name?, node?, optimization?, output?, parallelism?, performance?, plugins?, profile?, recordsInputPath?, recordsOutputPath?, recordsPath?, resolve?, resolveLoader?, snapshot?, stats?, target?, watch?, watchOptions? }
 			   -> Options object as provided by the user.
 			   The 'debug' property was removed in webpack 2.0.0.
 			   Loaders should be updated to allow passing this option via loader options in module.rules.
@@ -461,7 +461,7 @@ describe("Validation", () => {
 			       test: ...
 			     }
 			   }.
-			   object { <key>: false | RegExp | string | function | object { automaticNameDelimiter?, chunks?, enforce?, enforceSizeThreshold?, filename?, idHint?, maxAsyncRequests?, maxAsyncSize?, maxInitialRequests?, maxInitialSize?, maxSize?, minChunks?, minRemainingSize?, minSize?, name?, priority?, reuseExistingChunk?, test?, type?, usedExports? } }
+			   object { <key>: false | RegExp | string | function | object { automaticNameDelimiter?, chunks?, enforce?, enforceSizeThreshold?, filename?, idHint?, layer?, maxAsyncRequests?, maxAsyncSize?, maxInitialRequests?, maxInitialSize?, maxSize?, minChunks?, minRemainingSize?, minSize?, name?, priority?, reuseExistingChunk?, test?, type?, usedExports? } }
 			   -> Assign modules to a cache group (modules from different cache groups are tried to keep in separate chunks, default categories: 'default', 'defaultVendors')."
 		`)
 	);
@@ -482,7 +482,7 @@ describe("Validation", () => {
 			expect(msg).toMatchInlineSnapshot(`
 			"Invalid configuration object. Webpack has been initialized using a configuration object that does not match the API schema.
 			 - configuration[1] should be an object:
-			   object { amd?, bail?, cache?, context?, dependencies?, devServer?, devtool?, entry?, experiments?, externals?, externalsPresets?, externalsType?, infrastructureLogging?, loader?, mode?, module?, name?, node?, optimization?, output?, parallelism?, performance?, plugins?, profile?, recordsInputPath?, recordsOutputPath?, recordsPath?, resolve?, resolveLoader?, snapshot?, stats?, target?, watch?, watchOptions? }
+			   object { amd?, bail?, cache?, context?, dependencies?, devServer?, devtool?, entry?, experiments?, externals?, externalsPresets?, externalsType?, ignoreWarnings?, infrastructureLogging?, loader?, mode?, module?, name?, node?, optimization?, output?, parallelism?, performance?, plugins?, profile?, recordsInputPath?, recordsOutputPath?, recordsPath?, resolve?, resolveLoader?, snapshot?, stats?, target?, watch?, watchOptions? }
 			   -> Options object as provided by the user."
 		`)
 	);
@@ -496,9 +496,9 @@ describe("Validation", () => {
 			expect(msg).toMatchInlineSnapshot(`
 			"Invalid configuration object. Webpack has been initialized using a configuration object that does not match the API schema.
 			 - configuration.output has an unknown property 'ecmaVersion'. These properties are valid:
-			   object { assetModuleFilename?, auxiliaryComment?, charset?, chunkFilename?, chunkFormat?, chunkLoadTimeout?, chunkLoading?, chunkLoadingGlobal?, compareBeforeEmit?, crossOriginLoading?, devtoolFallbackModuleFilenameTemplate?, devtoolModuleFilenameTemplate?, devtoolNamespace?, enabledChunkLoadingTypes?, enabledLibraryTypes?, enabledWasmLoadingTypes?, environment?, filename?, globalObject?, hashDigest?, hashDigestLength?, hashFunction?, hashSalt?, hotUpdateChunkFilename?, hotUpdateGlobal?, hotUpdateMainFilename?, iife?, importFunctionName?, library?, libraryExport?, libraryTarget?, module?, path?, pathinfo?, publicPath?, scriptType?, sourceMapFilename?, sourcePrefix?, strictModuleExceptionHandling?, umdNamedDefine?, uniqueName?, wasmLoading?, webassemblyModuleFilename?, workerChunkLoading?, workerWasmLoading? }
+			   object { assetModuleFilename?, auxiliaryComment?, charset?, chunkFilename?, chunkFormat?, chunkLoadTimeout?, chunkLoading?, chunkLoadingGlobal?, compareBeforeEmit?, crossOriginLoading?, devtoolFallbackModuleFilenameTemplate?, devtoolModuleFilenameTemplate?, devtoolNamespace?, enabledChunkLoadingTypes?, enabledLibraryTypes?, enabledWasmLoadingTypes?, environment?, filename?, globalObject?, hashDigest?, hashDigestLength?, hashFunction?, hashSalt?, hotUpdateChunkFilename?, hotUpdateGlobal?, hotUpdateMainFilename?, iife?, importFunctionName?, importMetaName?, library?, libraryExport?, libraryTarget?, module?, path?, pathinfo?, publicPath?, scriptType?, sourceMapFilename?, sourcePrefix?, strictModuleExceptionHandling?, umdNamedDefine?, uniqueName?, wasmLoading?, webassemblyModuleFilename?, workerChunkLoading?, workerWasmLoading? }
 			   -> Options affecting the output of the compilation. \`output\` options tell webpack how to write the compiled files to disk.
-			   Did you mean output.environment?"
+			   Did you mean output.environment (output.ecmaVersion was a temporary configuration option during webpack 5 beta)?"
 		`)
 	);
 
@@ -539,7 +539,7 @@ describe("Validation", () => {
 			expect(msg).toMatchInlineSnapshot(`
 			"Invalid configuration object. Webpack has been initialized using a configuration object that does not match the API schema.
 			 - configuration.watchOptions should be an object:
-			   object { aggregateTimeout?, ignored?, poll?, stdin? }
+			   object { aggregateTimeout?, followSymlinks?, ignored?, poll?, stdin? }
 			   -> Options for the watcher."
 		`)
 	);
@@ -568,7 +568,7 @@ describe("Validation", () => {
 				expect(msg).toMatchInlineSnapshot(`
 			"Invalid configuration object. Webpack has been initialized using a configuration object that does not match the API schema.
 			 - configuration has an unknown property 'rules'. These properties are valid:
-			   object { amd?, bail?, cache?, context?, dependencies?, devServer?, devtool?, entry?, experiments?, externals?, externalsPresets?, externalsType?, infrastructureLogging?, loader?, mode?, module?, name?, node?, optimization?, output?, parallelism?, performance?, plugins?, profile?, recordsInputPath?, recordsOutputPath?, recordsPath?, resolve?, resolveLoader?, snapshot?, stats?, target?, watch?, watchOptions? }
+			   object { amd?, bail?, cache?, context?, dependencies?, devServer?, devtool?, entry?, experiments?, externals?, externalsPresets?, externalsType?, ignoreWarnings?, infrastructureLogging?, loader?, mode?, module?, name?, node?, optimization?, output?, parallelism?, performance?, plugins?, profile?, recordsInputPath?, recordsOutputPath?, recordsPath?, resolve?, resolveLoader?, snapshot?, stats?, target?, watch?, watchOptions? }
 			   -> Options object as provided by the user.
 			   Did you mean module.rules?"
 		`)
@@ -582,7 +582,7 @@ describe("Validation", () => {
 				expect(msg).toMatchInlineSnapshot(`
 			"Invalid configuration object. Webpack has been initialized using a configuration object that does not match the API schema.
 			 - configuration has an unknown property 'splitChunks'. These properties are valid:
-			   object { amd?, bail?, cache?, context?, dependencies?, devServer?, devtool?, entry?, experiments?, externals?, externalsPresets?, externalsType?, infrastructureLogging?, loader?, mode?, module?, name?, node?, optimization?, output?, parallelism?, performance?, plugins?, profile?, recordsInputPath?, recordsOutputPath?, recordsPath?, resolve?, resolveLoader?, snapshot?, stats?, target?, watch?, watchOptions? }
+			   object { amd?, bail?, cache?, context?, dependencies?, devServer?, devtool?, entry?, experiments?, externals?, externalsPresets?, externalsType?, ignoreWarnings?, infrastructureLogging?, loader?, mode?, module?, name?, node?, optimization?, output?, parallelism?, performance?, plugins?, profile?, recordsInputPath?, recordsOutputPath?, recordsPath?, resolve?, resolveLoader?, snapshot?, stats?, target?, watch?, watchOptions? }
 			   -> Options object as provided by the user.
 			   Did you mean optimization.splitChunks?"
 		`)
@@ -596,7 +596,7 @@ describe("Validation", () => {
 				expect(msg).toMatchInlineSnapshot(`
 			"Invalid configuration object. Webpack has been initialized using a configuration object that does not match the API schema.
 			 - configuration has an unknown property 'noParse'. These properties are valid:
-			   object { amd?, bail?, cache?, context?, dependencies?, devServer?, devtool?, entry?, experiments?, externals?, externalsPresets?, externalsType?, infrastructureLogging?, loader?, mode?, module?, name?, node?, optimization?, output?, parallelism?, performance?, plugins?, profile?, recordsInputPath?, recordsOutputPath?, recordsPath?, resolve?, resolveLoader?, snapshot?, stats?, target?, watch?, watchOptions? }
+			   object { amd?, bail?, cache?, context?, dependencies?, devServer?, devtool?, entry?, experiments?, externals?, externalsPresets?, externalsType?, ignoreWarnings?, infrastructureLogging?, loader?, mode?, module?, name?, node?, optimization?, output?, parallelism?, performance?, plugins?, profile?, recordsInputPath?, recordsOutputPath?, recordsPath?, resolve?, resolveLoader?, snapshot?, stats?, target?, watch?, watchOptions? }
 			   -> Options object as provided by the user.
 			   Did you mean module.noParse?"
 		`)
@@ -662,7 +662,7 @@ describe("Validation", () => {
 				expect(msg).toMatchInlineSnapshot(`
 			"Invalid configuration object. Webpack has been initialized using a configuration object that does not match the API schema.
 			 - configuration.optimization.splitChunks has an unknown property 'automaticNamePrefix'. These properties are valid:
-			   object { automaticNameDelimiter?, cacheGroups?, chunks?, enforceSizeThreshold?, fallbackCacheGroup?, filename?, hidePathInfo?, maxAsyncRequests?, maxAsyncSize?, maxInitialRequests?, maxInitialSize?, maxSize?, minChunks?, minRemainingSize?, minSize?, name?, usedExports? }
+			   object { automaticNameDelimiter?, cacheGroups?, chunks?, defaultSizeTypes?, enforceSizeThreshold?, fallbackCacheGroup?, filename?, hidePathInfo?, maxAsyncRequests?, maxAsyncSize?, maxInitialRequests?, maxInitialSize?, maxSize?, minChunks?, minRemainingSize?, minSize?, name?, usedExports? }
 			   -> Options object for splitting chunks into smaller chunks."
 		`)
 		);

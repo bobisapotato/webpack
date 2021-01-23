@@ -1,3 +1,4 @@
+const path = require("path");
 const jestDiff = require("jest-diff").default;
 const stripAnsi = require("strip-ansi");
 const {
@@ -105,6 +106,7 @@ describe("Defaults", () => {
 		    "web": true,
 		  },
 		  "externalsType": "var",
+		  "ignoreWarnings": undefined,
 		  "infrastructureLogging": Object {
 		    "debug": false,
 		    "level": "info",
@@ -187,21 +189,32 @@ describe("Defaults", () => {
 		        "type": "asset/resource",
 		      },
 		    ],
-		    "exprContextCritical": true,
-		    "exprContextRecursive": true,
-		    "exprContextRegExp": false,
-		    "exprContextRequest": ".",
+		    "generator": Object {},
+		    "noParse": undefined,
+		    "parser": Object {
+		      "asset": Object {
+		        "dataUrlCondition": Object {
+		          "maxSize": 8096,
+		        },
+		      },
+		      "javascript": Object {
+		        "exprContextCritical": true,
+		        "exprContextRecursive": true,
+		        "exprContextRegExp": false,
+		        "exprContextRequest": ".",
+		        "strictExportPresence": false,
+		        "strictThisContextOnImports": false,
+		        "unknownContextCritical": true,
+		        "unknownContextRecursive": true,
+		        "unknownContextRegExp": false,
+		        "unknownContextRequest": ".",
+		        "wrappedContextCritical": false,
+		        "wrappedContextRecursive": true,
+		        "wrappedContextRegExp": /\\.\\*/,
+		      },
+		    },
 		    "rules": Array [],
-		    "strictExportPresence": false,
-		    "strictThisContextOnImports": false,
-		    "unknownContextCritical": true,
-		    "unknownContextRecursive": true,
-		    "unknownContextRegExp": false,
-		    "unknownContextRequest": ".",
 		    "unsafeCache": false,
-		    "wrappedContextCritical": false,
-		    "wrappedContextRecursive": true,
-		    "wrappedContextRegExp": /\\.\\*/,
 		  },
 		  "name": undefined,
 		  "node": Object {
@@ -233,7 +246,7 @@ describe("Defaults", () => {
 		    "removeAvailableModules": false,
 		    "removeEmptyChunks": true,
 		    "runtimeChunk": false,
-		    "sideEffects": true,
+		    "sideEffects": "flag",
 		    "splitChunks": Object {
 		      "automaticNameDelimiter": "-",
 		      "cacheGroups": Object {
@@ -251,6 +264,10 @@ describe("Defaults", () => {
 		        },
 		      },
 		      "chunks": "async",
+		      "defaultSizeTypes": Array [
+		        "javascript",
+		        "unknown",
+		      ],
 		      "enforceSizeThreshold": 30000,
 		      "hidePathInfo": false,
 		      "maxAsyncRequests": Infinity,
@@ -300,14 +317,15 @@ describe("Defaults", () => {
 		    "hashSalt": undefined,
 		    "hotUpdateChunkFilename": "[id].[fullhash].hot-update.js",
 		    "hotUpdateGlobal": "webpackHotUpdatewebpack",
-		    "hotUpdateMainFilename": "[fullhash].hot-update.json",
+		    "hotUpdateMainFilename": "[runtime].[fullhash].hot-update.json",
 		    "iife": true,
 		    "importFunctionName": "import",
+		    "importMetaName": "import.meta",
 		    "library": undefined,
 		    "module": false,
 		    "path": "<cwd>/dist",
 		    "pathinfo": false,
-		    "publicPath": "",
+		    "publicPath": "auto",
 		    "scriptType": false,
 		    "sourceMapFilename": "[file].map[query]",
 		    "sourcePrefix": undefined,
@@ -447,6 +465,9 @@ describe("Defaults", () => {
 		          "...",
 		        ],
 		      },
+		      "url": Object {
+		        "preferRelative": true,
+		      },
 		      "wasm": Object {
 		        "aliasFields": Array [
 		          "browser",
@@ -466,6 +487,27 @@ describe("Defaults", () => {
 		          "module",
 		          "...",
 		        ],
+		      },
+		      "worker": Object {
+		        "aliasFields": Array [
+		          "browser",
+		        ],
+		        "conditionNames": Array [
+		          "import",
+		          "module",
+		          "...",
+		        ],
+		        "extensions": Array [
+		          ".js",
+		          ".json",
+		          ".wasm",
+		        ],
+		        "mainFields": Array [
+		          "browser",
+		          "module",
+		          "...",
+		        ],
+		        "preferRelative": true,
 		      },
 		    },
 		    "cache": false,
@@ -594,6 +636,9 @@ describe("Defaults", () => {
 		-     "realContentHash": false,
 		+     "realContentHash": true,
 		@@ ... @@
+		-     "sideEffects": "flag",
+		+     "sideEffects": true,
+		@@ ... @@
 		-       "enforceSizeThreshold": 30000,
 		-       "hidePathInfo": false,
 		-       "maxAsyncRequests": Infinity,
@@ -655,6 +700,9 @@ describe("Defaults", () => {
 		@@ ... @@
 		-     "realContentHash": false,
 		+     "realContentHash": true,
+		@@ ... @@
+		-     "sideEffects": "flag",
+		+     "sideEffects": true,
 		@@ ... @@
 		-       "enforceSizeThreshold": 30000,
 		-       "hidePathInfo": false,
@@ -972,6 +1020,9 @@ describe("Defaults", () => {
 		-     "globalObject": "self",
 		+     "globalObject": "global",
 		@@ ... @@
+		-     "publicPath": "auto",
+		+     "publicPath": "",
+		@@ ... @@
 		-     "wasmLoading": "fetch",
 		+     "wasmLoading": "async-node",
 		@@ ... @@
@@ -979,6 +1030,13 @@ describe("Defaults", () => {
 		-     "workerWasmLoading": "fetch",
 		+     "workerChunkLoading": "require",
 		+     "workerWasmLoading": "async-node",
+		@@ ... @@
+		-         "aliasFields": Array [
+		-           "browser",
+		-         ],
+		+         "aliasFields": Array [],
+		@@ ... @@
+		-           "browser",
 		@@ ... @@
 		-         "aliasFields": Array [
 		-           "browser",
@@ -1096,6 +1154,9 @@ describe("Defaults", () => {
 		-     "globalObject": "self",
 		+     "globalObject": "global",
 		@@ ... @@
+		-     "publicPath": "auto",
+		+     "publicPath": "",
+		@@ ... @@
 		-     "wasmLoading": "fetch",
 		+     "wasmLoading": "async-node",
 		@@ ... @@
@@ -1103,6 +1164,13 @@ describe("Defaults", () => {
 		-     "workerWasmLoading": "fetch",
 		+     "workerChunkLoading": "require",
 		+     "workerWasmLoading": "async-node",
+		@@ ... @@
+		-         "aliasFields": Array [
+		-           "browser",
+		-         ],
+		+         "aliasFields": Array [],
+		@@ ... @@
+		-           "browser",
 		@@ ... @@
 		-         "aliasFields": Array [
 		-           "browser",
@@ -1202,6 +1270,9 @@ describe("Defaults", () => {
 		-     "globalObject": "self",
 		+     "globalObject": "global",
 		@@ ... @@
+		-     "publicPath": "auto",
+		+     "publicPath": "",
+		@@ ... @@
 		-     "wasmLoading": "fetch",
 		+     "wasmLoading": "async-node",
 		@@ ... @@
@@ -1209,6 +1280,13 @@ describe("Defaults", () => {
 		-     "workerWasmLoading": "fetch",
 		+     "workerChunkLoading": "require",
 		+     "workerWasmLoading": "async-node",
+		@@ ... @@
+		-         "aliasFields": Array [
+		-           "browser",
+		-         ],
+		+         "aliasFields": Array [],
+		@@ ... @@
+		-           "browser",
 		@@ ... @@
 		-         "aliasFields": Array [
 		-           "browser",
@@ -1421,6 +1499,10 @@ describe("Defaults", () => {
 			-         },
 			-       },
 			-       "chunks": "async",
+			-       "defaultSizeTypes": Array [
+			-         "javascript",
+			-         "unknown",
+			-       ],
 			-       "enforceSizeThreshold": 30000,
 			-       "hidePathInfo": false,
 			-       "maxAsyncRequests": Infinity,
@@ -1497,6 +1579,53 @@ describe("Defaults", () => {
 		+   "stats": Object {
 		+     "preset": "minimal",
 		+   },
+		`)
+	);
+
+	test(
+		"browserslist",
+		{ context: path.resolve(__dirname, "fixtures/browserslist") },
+		e =>
+			e.toMatchInlineSnapshot(`
+			- Expected
+			+ Received
+
+			@@ ... @@
+			-   "context": "<cwd>",
+			+   "context": "<cwd>/test/fixtures/browserslist",
+			@@ ... @@
+			-     "chunkLoadingGlobal": "webpackChunkwebpack",
+			+     "chunkLoadingGlobal": "webpackChunkbrowserslist_test",
+			@@ ... @@
+			-     "devtoolNamespace": "webpack",
+			+     "devtoolNamespace": "browserslist-test",
+			@@ ... @@
+			-       "arrowFunction": true,
+			-       "bigIntLiteral": undefined,
+			-       "const": true,
+			-       "destructuring": true,
+			-       "dynamicImport": undefined,
+			-       "forOf": true,
+			-       "module": undefined,
+			+       "arrowFunction": false,
+			+       "bigIntLiteral": false,
+			+       "const": false,
+			+       "destructuring": false,
+			+       "dynamicImport": false,
+			+       "forOf": false,
+			+       "module": false,
+			@@ ... @@
+			-     "hotUpdateGlobal": "webpackHotUpdatewebpack",
+			+     "hotUpdateGlobal": "webpackHotUpdatebrowserslist_test",
+			@@ ... @@
+			-     "uniqueName": "webpack",
+			+     "uniqueName": "browserslist-test",
+			@@ ... @@
+			-       "<cwd>",
+			+       "<cwd>/test/fixtures/browserslist",
+			@@ ... @@
+			-   "target": "web",
+			+   "target": "browserslist",
 		`)
 	);
 });

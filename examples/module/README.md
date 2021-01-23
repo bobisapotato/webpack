@@ -43,10 +43,9 @@ export function reset() {
   !*** ./example.js + 2 modules ***!
   \********************************/
 /*! namespace exports */
-/*! exports [not provided] [unused] */
 /*! runtime requirements:  */
 
-// CONCATENATED MODULE: ./counter.js
+;// CONCATENATED MODULE: ./counter.js
 let value = 0;
 function increment() {
 	value++;
@@ -58,12 +57,12 @@ function counter_reset() {
 	value = 0;
 }
 
-// CONCATENATED MODULE: ./methods.js
+;// CONCATENATED MODULE: ./methods.js
 
 
 const print = value => console.log(value);
 
-// CONCATENATED MODULE: ./example.js
+;// CONCATENATED MODULE: ./example.js
 
 
 print(value);
@@ -86,31 +85,25 @@ let o=0;function n(){o++}const c=o=>console.log(o);c(o),n(),n(),n(),c(o),o=0,c(o
 ## Unoptimized
 
 ```
-Hash: 0a1b2c3d4e5f6a7b8c9d
-Version: webpack 5.0.0-beta.16
-    Asset       Size
-output.js  616 bytes  [emitted]  [name: main]
-Entrypoint main = output.js
-chunk output.js (main) 429 bytes [entry] [rendered]
-    > ./example.js main
- ./example.js + 2 modules 429 bytes [built]
-     [no exports]
-     [no exports used]
-     entry ./example.js main
+asset output.js 580 bytes [emitted] [javascript module] (name: main)
+chunk (runtime: main) output.js (main) 429 bytes [entry] [rendered]
+  > ./example.js main
+  ./example.js + 2 modules 429 bytes [built] [code generated]
+    [no exports]
+    [no exports used]
+    entry ./example.js main
+webpack 5.11.1 compiled successfully
 ```
 
 ## Production mode
 
 ```
-Hash: 0a1b2c3d4e5f6a7b8c9d
-Version: webpack 5.0.0-beta.16
-    Asset      Size
-output.js  82 bytes  [emitted]  [name: main]
-Entrypoint main = output.js
-chunk output.js (main) 429 bytes [entry] [rendered]
-    > ./example.js main
- ./example.js + 2 modules 429 bytes [built]
-     [no exports]
-     [no exports used]
-     entry ./example.js main
+asset output.js 82 bytes [emitted] [javascript module] [minimized] (name: main)
+chunk (runtime: main) output.js (main) 429 bytes [entry] [rendered]
+  > ./example.js main
+  ./example.js + 2 modules 429 bytes [built] [code generated]
+    [no exports]
+    [no exports used]
+    entry ./example.js main
+webpack 5.11.1 compiled successfully
 ```
