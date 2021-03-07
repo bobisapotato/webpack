@@ -406,6 +406,38 @@ Object {
     "multiple": false,
     "simpleType": "boolean",
   },
+  "experiments-lazy-compilation-imports": Object {
+    "configs": Array [
+      Object {
+        "description": "Enable/disable lazy compilation for import() modules.",
+        "multiple": false,
+        "path": "experiments.lazyCompilation.imports",
+        "type": "boolean",
+      },
+    ],
+    "description": "Enable/disable lazy compilation for import() modules.",
+    "multiple": false,
+    "simpleType": "boolean",
+  },
+  "experiments-lazy-compilation-test": Object {
+    "configs": Array [
+      Object {
+        "description": "Specify which entrypoints or import()ed modules should be lazily compiled. This is matched with the imported module and not the entrypoint name.",
+        "multiple": false,
+        "path": "experiments.lazyCompilation.test",
+        "type": "RegExp",
+      },
+      Object {
+        "description": "Specify which entrypoints or import()ed modules should be lazily compiled. This is matched with the imported module and not the entrypoint name.",
+        "multiple": false,
+        "path": "experiments.lazyCompilation.test",
+        "type": "string",
+      },
+    ],
+    "description": "Specify which entrypoints or import()ed modules should be lazily compiled. This is matched with the imported module and not the entrypoint name.",
+    "multiple": false,
+    "simpleType": "string",
+  },
   "experiments-output-module": Object {
     "configs": Array [
       Object {
@@ -1323,12 +1355,21 @@ Object {
         "description": "Enable/disable parsing of new URL() syntax.",
         "multiple": false,
         "path": "module.parser.javascript/auto.url",
+        "type": "enum",
+        "values": Array [
+          "relative",
+        ],
+      },
+      Object {
+        "description": "Enable/disable parsing of new URL() syntax.",
+        "multiple": false,
+        "path": "module.parser.javascript/auto.url",
         "type": "boolean",
       },
     ],
     "description": "Enable/disable parsing of new URL() syntax.",
     "multiple": false,
-    "simpleType": "boolean",
+    "simpleType": "string",
   },
   "module-parser-javascript-auto-worker": Object {
     "configs": Array [
@@ -1801,12 +1842,21 @@ Object {
         "description": "Enable/disable parsing of new URL() syntax.",
         "multiple": false,
         "path": "module.parser.javascript/dynamic.url",
+        "type": "enum",
+        "values": Array [
+          "relative",
+        ],
+      },
+      Object {
+        "description": "Enable/disable parsing of new URL() syntax.",
+        "multiple": false,
+        "path": "module.parser.javascript/dynamic.url",
         "type": "boolean",
       },
     ],
     "description": "Enable/disable parsing of new URL() syntax.",
     "multiple": false,
-    "simpleType": "boolean",
+    "simpleType": "string",
   },
   "module-parser-javascript-dynamic-worker": Object {
     "configs": Array [
@@ -2240,12 +2290,21 @@ Object {
         "description": "Enable/disable parsing of new URL() syntax.",
         "multiple": false,
         "path": "module.parser.javascript/esm.url",
+        "type": "enum",
+        "values": Array [
+          "relative",
+        ],
+      },
+      Object {
+        "description": "Enable/disable parsing of new URL() syntax.",
+        "multiple": false,
+        "path": "module.parser.javascript/esm.url",
         "type": "boolean",
       },
     ],
     "description": "Enable/disable parsing of new URL() syntax.",
     "multiple": false,
-    "simpleType": "boolean",
+    "simpleType": "string",
   },
   "module-parser-javascript-esm-worker": Object {
     "configs": Array [
@@ -2624,12 +2683,21 @@ Object {
         "description": "Enable/disable parsing of new URL() syntax.",
         "multiple": false,
         "path": "module.parser.javascript.url",
+        "type": "enum",
+        "values": Array [
+          "relative",
+        ],
+      },
+      Object {
+        "description": "Enable/disable parsing of new URL() syntax.",
+        "multiple": false,
+        "path": "module.parser.javascript.url",
         "type": "boolean",
       },
     ],
     "description": "Enable/disable parsing of new URL() syntax.",
     "multiple": false,
-    "simpleType": "boolean",
+    "simpleType": "string",
   },
   "module-parser-javascript-worker": Object {
     "configs": Array [
@@ -4052,6 +4120,51 @@ Object {
       },
     ],
     "description": "The global variable used by webpack for loading of chunks.",
+    "multiple": false,
+    "simpleType": "string",
+  },
+  "output-clean": Object {
+    "configs": Array [
+      Object {
+        "description": "Clean the output directory before emit.",
+        "multiple": false,
+        "path": "output.clean",
+        "type": "boolean",
+      },
+    ],
+    "description": "Clean the output directory before emit.",
+    "multiple": false,
+    "simpleType": "boolean",
+  },
+  "output-clean-dry": Object {
+    "configs": Array [
+      Object {
+        "description": "Log the assets that should be removed instead of deleting them.",
+        "multiple": false,
+        "path": "output.clean.dry",
+        "type": "boolean",
+      },
+    ],
+    "description": "Log the assets that should be removed instead of deleting them.",
+    "multiple": false,
+    "simpleType": "boolean",
+  },
+  "output-clean-keep": Object {
+    "configs": Array [
+      Object {
+        "description": "Keep these assets.",
+        "multiple": false,
+        "path": "output.clean.keep",
+        "type": "RegExp",
+      },
+      Object {
+        "description": "Keep these assets.",
+        "multiple": false,
+        "path": "output.clean.keep",
+        "type": "string",
+      },
+    ],
+    "description": "Keep these assets.",
     "multiple": false,
     "simpleType": "string",
   },
@@ -6866,12 +6979,21 @@ Object {
         "description": "Add details to errors (like resolving log).",
         "multiple": false,
         "path": "stats.errorDetails",
+        "type": "enum",
+        "values": Array [
+          "auto",
+        ],
+      },
+      Object {
+        "description": "Add details to errors (like resolving log).",
+        "multiple": false,
+        "path": "stats.errorDetails",
         "type": "boolean",
       },
     ],
     "description": "Add details to errors (like resolving log).",
     "multiple": false,
-    "simpleType": "boolean",
+    "simpleType": "string",
   },
   "stats-error-stack": Object {
     "configs": Array [

@@ -438,6 +438,10 @@ export type ChunkLoadTimeout = number;
  */
 export type ChunkLoadingGlobal = string;
 /**
+ * Clean the output directory before emit.
+ */
+export type Clean = boolean | CleanOptions;
+/**
  * Check if to be emitted file already exists and have the same content before writing to output filesystem.
  */
 export type CompareBeforeEmit = boolean;
@@ -619,6 +623,51 @@ export type StatsValue =
 	  )
 	| boolean
 	| StatsOptions;
+/**
+ * Filtering modules.
+ */
+export type ModuleFilterTypes = ModuleFilterItemTypes[] | ModuleFilterItemTypes;
+/**
+ * Filtering value, regexp or function.
+ */
+export type ModuleFilterItemTypes =
+	| RegExp
+	| string
+	| ((
+			name: string,
+			module: import("../lib/stats/DefaultStatsFactoryPlugin").StatsModule,
+			type: "module" | "chunk" | "root-of-chunk" | "nested"
+	  ) => boolean);
+/**
+ * Filtering modules.
+ */
+export type AssetFilterTypes = AssetFilterItemTypes[] | AssetFilterItemTypes;
+/**
+ * Filtering value, regexp or function.
+ */
+export type AssetFilterItemTypes =
+	| RegExp
+	| string
+	| ((
+			name: string,
+			asset: import("../lib/stats/DefaultStatsFactoryPlugin").StatsAsset
+	  ) => boolean);
+/**
+ * Filtering warnings.
+ */
+export type WarningFilterTypes =
+	| WarningFilterItemTypes[]
+	| WarningFilterItemTypes;
+/**
+ * Filtering value, regexp or function.
+ */
+export type WarningFilterItemTypes =
+	| RegExp
+	| string
+	| ((
+			warning: import("../lib/stats/DefaultStatsFactoryPlugin").StatsError,
+			value: string
+	  ) => boolean);
 /**
  * Environment to build for. An array of environments to build for all of them when possible.
  */
@@ -1068,6 +1117,14 @@ export interface Experiments {
 				 * Enable/disable lazy compilation for entries.
 				 */
 				entries?: boolean;
+				/**
+				 * Enable/disable lazy compilation for import() modules.
+				 */
+				imports?: boolean;
+				/**
+				 * Specify which entrypoints or import()ed modules should be lazily compiled. This is matched with the imported module and not the entrypoint name.
+				 */
+				test?: RegExp | string | ((module: import("../lib/Module")) => boolean);
 		  };
 	/**
 	 * Allow output javascript files as module source type.
@@ -1842,6 +1899,10 @@ export interface Output {
 	 */
 	chunkLoadingGlobal?: ChunkLoadingGlobal;
 	/**
+	 * Clean the output directory before emit.
+	 */
+	clean?: Clean;
+	/**
 	 * Check if to be emitted file already exists and have the same content before writing to output filesystem.
 	 */
 	compareBeforeEmit?: CompareBeforeEmit;
@@ -1993,6 +2054,19 @@ export interface Output {
 	 * The method of loading WebAssembly Modules (methods included by default are 'fetch' (web/WebWorker), 'async-node' (node.js), but others might be added by plugins).
 	 */
 	workerWasmLoading?: WasmLoading;
+}
+/**
+ * Advanced options for cleaning assets.
+ */
+export interface CleanOptions {
+	/**
+	 * Log the assets that should be removed instead of deleting them.
+	 */
+	dry?: boolean;
+	/**
+	 * Keep these assets.
+	 */
+	keep?: RegExp | string | ((filename: string) => boolean);
 }
 /**
  * The abilities of the environment where the webpack generated code should run.
@@ -2247,7 +2321,7 @@ export interface StatsOptions {
 	/**
 	 * Add details to errors (like resolving log).
 	 */
-	errorDetails?: boolean;
+	errorDetails?: "auto" | boolean;
 	/**
 	 * Add internal stack trace to errors.
 	 */
@@ -2263,15 +2337,15 @@ export interface StatsOptions {
 	/**
 	 * Please use excludeModules instead.
 	 */
-	exclude?: boolean | FilterTypes;
+	exclude?: boolean | ModuleFilterTypes;
 	/**
 	 * Suppress assets that match the specified filters. Filters can be Strings, RegExps or Functions.
 	 */
-	excludeAssets?: FilterTypes;
+	excludeAssets?: AssetFilterTypes;
 	/**
 	 * Suppress modules that match the specified filters. Filters can be Strings, RegExps, Booleans or Functions.
 	 */
-	excludeModules?: boolean | FilterTypes;
+	excludeModules?: boolean | ModuleFilterTypes;
 	/**
 	 * Group assets by how their are related to chunks.
 	 */
@@ -2431,7 +2505,7 @@ export interface StatsOptions {
 	/**
 	 * Suppress listing warnings that match the specified filters (they will still be counted). Filters can be Strings, RegExps or Functions.
 	 */
-	warningsFilter?: FilterTypes;
+	warningsFilter?: WarningFilterTypes;
 }
 /**
  * Options for the watcher.
@@ -2685,7 +2759,7 @@ export interface JavascriptParserOptions {
 	/**
 	 * Enable/disable parsing of new URL() syntax.
 	 */
-	url?: boolean;
+	url?: "relative" | boolean;
 	/**
 	 * Disable or configure parsing of WebWorker syntax like new Worker() or navigator.serviceWorker.register().
 	 */
@@ -2765,6 +2839,10 @@ export interface OutputNormalized {
 	 * The global variable used by webpack for loading of chunks.
 	 */
 	chunkLoadingGlobal?: ChunkLoadingGlobal;
+	/**
+	 * Clean the output directory before emit.
+	 */
+	clean?: Clean;
 	/**
 	 * Check if to be emitted file already exists and have the same content before writing to output filesystem.
 	 */
